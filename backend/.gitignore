@@ -10,9 +10,3 @@ yarn-error.log*
 public/temp/*
 !public/temp/.gitkeep
 
-
-src/middlewares/
-src/controllers/
-src/models/
-src/utils/
-src/routes/
