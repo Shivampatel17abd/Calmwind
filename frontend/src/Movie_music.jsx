@@ -1,17 +1,20 @@
-import React, { useState } from "react";
 
-//movie
+import React, { useState } from "react";
+import "./Movie_music.css";
 const movies = [
   {
-    
+    id: 1,
+    title: "The Pursuit of Happyness",
+    category: "Motivation",
+    year: 2006,
+    description: "An inspiring story about persistence, hope and never giving up.",
+    poster: "/movie-music_poster/persuit.jpg",
+    rating: "8.0"
   }
 ];
-
 //song
 const songs = [
-    {
-
-    }
+  
 ];
 
 function MoviesMusic() {
@@ -66,7 +69,7 @@ function MoviesMusic() {
           className={activeTab === "movies" ? "active" : ""}
           onClick={() => {
             setActiveTab("movies");
-            setCategory("Emotions");
+            setCategory("All");
             setSearch("");
           }}
         >
@@ -121,9 +124,8 @@ function MoviesMusic() {
           <div className="media-grid">
             {filteredMovies.map((movie) => (
               <div className="movie-card" key={movie.id}>
-                <div className={`media-art ${movie.color}`}>
-                  <span>{movie.poster}</span>
-                  <small>{movie.year}</small>
+                <div className="media-art">
+                  <img src={movie.poster} alt={movie.title} />
                 </div>
 
                 <div className="media-card-info">
@@ -131,6 +133,7 @@ function MoviesMusic() {
                     {movie.category}
                   </span>
                   <h3>{movie.title}</h3>
+                    <span style={{ fontSize: "15px"}}>{movie.year}</span>
                   <p>{movie.description}</p>
                   <div className="media-card-bottom">
                     <span>⭐ {movie.rating}</span>

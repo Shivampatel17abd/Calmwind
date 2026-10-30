@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./login";
-import Movie_Music from "./movie_music";
 import CreateAccount from "./createacc";
+import Movie_Music from "./Movie_music";
 
 function App() {
   return (
