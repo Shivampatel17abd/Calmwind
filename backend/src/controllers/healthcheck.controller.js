@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import { Chat } from "../models/chat.model.js";
 
 const healthcheck = asyncHandler(async (req, res) => {
     const dbStatus =

@@ -1,6 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Navbar() {
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
+  const isTracker = pathname === "/track-health" || pathname === "/track_helth";
+
+  const linkBase =
+    "px-3.5 py-1.5 rounded-full transition-colors whitespace-nowrap";
+  const inactiveLink =
+    "text-[#7b827a] hover:text-[#243b32] hover:bg-[#dce8d5]/50";
+  const activeLink = "bg-[#dce8d5] text-[#243b32] font-semibold";
+
   return (
     <header className="sticky top-0 z-50 backdrop-blur-md bg-[#fffefa]/90 border-b border-[#e7e9df] transition-all duration-300">
       <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-8 py-3.5">
@@ -17,23 +27,32 @@ export default function Navbar() {
           <span className="font-medium tracking-tight">CalmWind</span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-1 text-sm font-medium text-[#7b827a]">
-          <a
-            href="#home"
-            className="px-3.5 py-1.5 rounded-full hover:text-[#243b32] hover:bg-[#dce8d5]/50 transition-colors"
+        <div className="hidden md:flex items-center gap-1 text-sm font-medium">
+          <Link
+            to="/"
+            className={`${linkBase} ${isHome ? activeLink : inactiveLink}`}
           >
             Home
-          </a>
-          <a
-            href="#features"
-            className="px-3.5 py-1.5 rounded-full hover:text-[#243b32] hover:bg-[#dce8d5]/50 transition-colors"
+          </Link>
+
+          {isHome ? (
+            <a href="#features" className={`${linkBase} ${inactiveLink}`}>
+              Features
+            </a>
+          ) : (
+            <Link to="/#features" className={`${linkBase} ${inactiveLink}`}>
+              Features
+            </Link>
+          )}
+
+          <Link
+            to="/track-health"
+            className={`${linkBase} ${isTracker ? activeLink : inactiveLink}`}
           >
-            Features
-          </a>
-          <a
-            href="#help"
-            className="px-3.5 py-1.5 rounded-full hover:text-[#243b32] hover:bg-[#dce8d5]/50 transition-colors"
-          >
+            Health Tracker
+          </Link>
+
+          <a href="#help" className={`${linkBase} ${inactiveLink}`}>
             Help
           </a>
         </div>
@@ -65,6 +84,31 @@ export default function Navbar() {
           </Link>
         </div>
       </nav>
+
+      {/* Mobile navigation strip */}
+      <div className="md:hidden border-t border-[#eceee7] px-3 py-2 flex items-center justify-center gap-1.5 text-xs font-medium overflow-x-auto">
+        <Link
+          to="/"
+          className={`px-3 py-1 rounded-full ${isHome ? activeLink : inactiveLink}`}
+        >
+          Home
+        </Link>
+        <Link
+          to="/track-health"
+          className={`px-3 py-1 rounded-full ${isTracker ? activeLink : inactiveLink}`}
+        >
+          Health Tracker
+        </Link>
+        {isHome ? (
+          <a href="#features" className={`px-3 py-1 rounded-full ${inactiveLink}`}>
+            Features
+          </a>
+        ) : (
+          <Link to="/#features" className={`px-3 py-1 rounded-full ${inactiveLink}`}>
+            Features
+          </Link>
+        )}
+      </div>
     </header>
   );
 }
