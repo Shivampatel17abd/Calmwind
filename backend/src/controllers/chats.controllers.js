@@ -22,11 +22,10 @@ const createChat = asyncHandler(async(req,res)=>{
     return res.status(201).json(new ApiResponse(201, newChat, "Chat created successfully"));
 })
 
+
 const getChatsByUserId = asyncHandler(async(req,res)=>{
 
     const {userId} = req.query;
-
-    
 
     console.log(userId);
 
