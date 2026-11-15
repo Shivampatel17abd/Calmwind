@@ -29,7 +29,8 @@ import noteRouter from './routes/notes.route.js';
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/chats", chatRouter);
-app.use("/api/v1/chats",noteRouter);
+app.use("/api/v1/notes", noteRouter);
+
 
 // Global Error Handler Middleware
 app.use(errorHandler);

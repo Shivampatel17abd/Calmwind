@@ -33,6 +33,8 @@ const features = [
     title: "Private journal",
     description: "A safe place to write, with optional mood tags.",
     tag: "Private",
+    to: "/notes",
+    cta: "View status",
   },
   {
     icon: "🎵",

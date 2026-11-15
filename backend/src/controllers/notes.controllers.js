@@ -1,77 +1,87 @@
 import { notes } from "../models/notes.model.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
-import {asyncHandler} from "../utils/asyncHandler.js"
+import { asyncHandler } from "../utils/asyncHandler.js";
 
-const createNote = asyncHandler(async (req,res)=>{
-   
-    const {userId,note} = req.body
+const createNote = asyncHandler(async (req, res) => {
+    const { userId, note } = req.body;
 
-
-    console.log(userId,note);
-
-    if(!userId || !note){
-        throw new ApiError(400, "All fields  are required");
+    if (!userId || !note) {
+        throw new ApiError(400, "userId and note are required");
     }
-    
 
-    const newNote = await notes.create({userId,note});
+    console.log(note)
 
-    if(!newNote){
+    const newNote = await notes.create({ userId, note });
+
+    if (!newNote) {
         throw new ApiError(500, "Failed to create note");
     }
-    
 
-    return res.status(200).json(new ApiResponse(200,newNote,"new Note created successfully"))
+    return res
+        .status(201)
+        .json(new ApiResponse(201, newNote, "Note created successfully"));
+});
 
-})
+const getNotesByUserId = asyncHandler(async (req, res) => {
+    const { userId } = req.query;
 
-
-const getNotesByUserId = asyncHandler(async(req,res)=>{
-
-    const{userId} = req.query;
-
-    if(!userId){
-        throw new ApiError(300,"userID required");
+    if (!userId) {
+        throw new ApiError(400, "userId is required");
     }
 
-    const userNotes = await notes.find({userId}).sort({createChat:-1});
+    const userNotes = await notes.find({ userId }).sort({ createdAt: -1 });
 
+    return res
+        .status(200)
+        .json(new ApiResponse(200, userNotes, "Notes fetched successfully"));
+});
 
-    if(userNotes.length === 0){
-        throw new ApiError(404,"No notes find with this userID");
-    }
-    
-    return res.status(200).json(new ApiResponse(200,userNotes,"Notes succesfully get"));
+const getNoteById = asyncHandler(async (req, res) => {
+    const noteId = req.params?.noteId || req.query?.noteId || req.body?.noteId;
 
-})
-
-
-const deleteNote = asyncHandler(async(req,res)=>{
-     
-    const {noteId} = req.body;
-
-    if(!req.body){
-        throw new ApiError("note id is required");
+    if (!noteId) {
+        throw new ApiError(400, "noteId is required");
     }
 
     const note = await notes.findById(noteId);
 
-    if(!note){
-        throw new ApiError("there is no note exist with this noteID");
+    if (!note) {
+        throw new ApiError(404, "No note exists with this noteId");
     }
 
-     const deletednote = await notes.findByIdAndDelete(noteId);
+    return res
+        .status(200)
+        .json(new ApiResponse(200, note, "Note fetched successfully"));
+});
 
-     if(!deletednote){
-        throw new ApiError(500,"there is error while deleting the note")
-     }
-     return res.status(200).json(new ApiResponse(200,deletednote,"note deleted successfully"));
-})
+const deleteNote = asyncHandler(async (req, res) => {
+    const noteId = req.body?.noteId || req.query?.noteId || req.params?.noteId;
 
+    if (!noteId) {
+        throw new ApiError(400, "noteId is required");
+    }
+
+    const note = await notes.findById(noteId);
+
+    if (!note) {
+        throw new ApiError(404, "No note exists with this noteId");
+    }
+
+    const deletednote = await notes.findByIdAndDelete(noteId);
+
+    if (!deletednote) {
+        throw new ApiError(500, "There was an error while deleting the note");
+    }
+
+    return res
+        .status(200)
+        .json(new ApiResponse(200, deletednote, "Note deleted successfully"));
+});
 
 export {
-  createNote,
-  getNotesByUserId,
-  deleteNote
-}
+    createNote,
+    getNotesByUserId,
+    getNoteById,
+    deleteNote,
+};

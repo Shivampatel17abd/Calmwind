@@ -4,6 +4,7 @@ export default function Navbar() {
   const { pathname } = useLocation();
   const isHome = pathname === "/";
   const isTracker = pathname === "/track-health" || pathname === "/track_helth";
+  const isNotes = pathname === "/notes";
 
   const linkBase =
     "px-3.5 py-1.5 rounded-full transition-colors whitespace-nowrap";
@@ -52,6 +53,13 @@ export default function Navbar() {
             Health Tracker
           </Link>
 
+          <Link
+            to="/notes"
+            className={`${linkBase} ${isNotes ? activeLink : inactiveLink}`}
+          >
+            Notepad
+          </Link>
+
           <a href="#help" className={`${linkBase} ${inactiveLink}`}>
             Help
           </a>
@@ -98,6 +106,12 @@ export default function Navbar() {
           className={`px-3 py-1 rounded-full ${isTracker ? activeLink : inactiveLink}`}
         >
           Health Tracker
+        </Link>
+        <Link
+          to="/notes"
+          className={`px-3 py-1 rounded-full ${isNotes ? activeLink : inactiveLink}`}
+        >
+          Notepad
         </Link>
         {isHome ? (
           <a href="#features" className={`px-3 py-1 rounded-full ${inactiveLink}`}>
