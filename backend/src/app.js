@@ -22,10 +22,15 @@ app.use(cookieParser());
 // Routes import
 
 import userRouter from "./routes/user.routes.js";
+import chatRouter from "./routes/chat.routes.js";
+import noteRouter from './routes/notes.route.js';
 
 // Routes declaration
 
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/chats", chatRouter);
+app.use("/api/v1/notes", noteRouter);
+
 
 // Global Error Handler Middleware
 app.use(errorHandler);

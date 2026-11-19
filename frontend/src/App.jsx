@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -7,6 +8,8 @@ import Footer from "./components/Footer";
 
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import MentalHealthTracker from "./pages/track_helth";
+import Notes from "./pages/notes";
 
 import AppLayout from "./components/AppLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -17,6 +20,19 @@ import AccountPage from "./pages/AccountPage";
 import { AuthProvider } from "./context/AuthContext";
 
 function PublicLanding() {
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const target = document.querySelector(hash);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" });
+        return;
+      }
+    }
+    window.scrollTo({ top: 0 });
+  }, [hash]);
+
   return (
     <div className="min-h-screen calm-bg text-[#243b32] selection:bg-[#cadcbd] selection:text-[#1a2c25]">
       <Navbar />
@@ -39,6 +55,11 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/create-account" element={<Signup />} />
+
+          {/* Public tools from main (local-first, no account needed) */}
+          <Route path="/track-health" element={<MentalHealthTracker />} />
+          <Route path="/track_helth" element={<MentalHealthTracker />} />
+          <Route path="/notes" element={<Notes />} />
 
           {/* Authenticated Desktop App with Left Sidebar */}
           <Route element={<ProtectedRoute />}>

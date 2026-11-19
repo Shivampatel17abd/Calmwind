@@ -39,7 +39,7 @@ export default function Hero() {
         {/* Actions */}
         <div className="mt-9 flex flex-wrap items-center justify-center gap-3.5 sm:gap-4">
           <Link
-            to="/app"
+            to="/track-health"
             className="btn-primary text-sm sm:text-base px-6 sm:px-7 py-3 sm:py-3.5 shadow-[0_8px_25px_rgba(53,91,68,0.22)] hover:shadow-[0_14px_30px_rgba(53,91,68,0.3)] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
           >
             <span>Start your check-in</span>
