@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { Moon, Wind, Heart, ArrowRight } from "lucide-react";
+import { SproutLogo } from "./BotanicalDecor";
 
 export default function Hero() {
   return (
@@ -20,7 +22,7 @@ export default function Hero() {
       <div className="relative max-w-3xl mx-auto">
         {/* Top badge */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-[11px] font-bold tracking-[2.5px] uppercase text-[#4b7355] bg-[#dce8d5]/80 border border-[#cadcbd] rounded-full shadow-xs">
-          <span className="text-xs">✿</span>
+          <SproutLogo className="w-3.5 h-3.5" color="#355b44" />
           <span>Your space to breathe</span>
         </div>
 
@@ -41,22 +43,22 @@ export default function Hero() {
             className="btn-primary text-sm sm:text-base px-6 sm:px-7 py-3 sm:py-3.5 shadow-[0_8px_25px_rgba(53,91,68,0.22)] hover:shadow-[0_14px_30px_rgba(53,91,68,0.3)] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
           >
             <span>Start your check-in</span>
-            <span aria-hidden="true">→</span>
+            <ArrowRight className="w-4 h-4" />
           </Link>
 
-          <a
-            href="#features"
+          <Link
+            to="/app/journal"
             className="btn-secondary text-sm sm:text-base px-5 sm:px-6 py-3 sm:py-3.5 border border-[#dfe4d9] hover:border-[#cadcbd] hover:bg-[#dce8d5] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200"
           >
-            Explore features
-          </a>
+            Open Journal
+          </Link>
         </div>
 
         {/* Interactive aesthetic float cards preview */}
         <div className="mt-14 max-w-xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-4">
           <div className="calm-card p-4 flex items-center gap-3 bg-[#fffefa]/90 animate-float">
-            <div className="h-9 w-9 grid place-items-center rounded-xl bg-[#dce8d5] text-[#355b44] text-base shrink-0">
-              🌿
+            <div className="h-9 w-9 grid place-items-center rounded-xl bg-[#dce8d5] text-[#355b44] shrink-0">
+              <Heart className="w-4 h-4 text-[#355b44]" />
             </div>
             <div className="text-left">
               <p className="text-[11px] font-semibold tracking-wider text-[#69836b] uppercase">Mood</p>
@@ -65,8 +67,8 @@ export default function Hero() {
           </div>
 
           <div className="calm-card p-4 flex items-center gap-3 bg-[#fffefa]/90 animate-float-slow">
-            <div className="h-9 w-9 grid place-items-center rounded-xl bg-[#e3ebdf] text-[#355b44] text-base shrink-0">
-              🌙
+            <div className="h-9 w-9 grid place-items-center rounded-xl bg-[#e3ebdf] text-[#355b44] shrink-0">
+              <Moon className="w-4 h-4 text-[#355b44]" />
             </div>
             <div className="text-left">
               <p className="text-[11px] font-semibold tracking-wider text-[#69836b] uppercase">Sleep</p>
@@ -75,8 +77,8 @@ export default function Hero() {
           </div>
 
           <div className="calm-card p-4 flex items-center gap-3 bg-[#fffefa]/90 animate-float">
-            <div className="h-9 w-9 grid place-items-center rounded-xl bg-[#fbf2e3] text-[#7a4c28] text-base shrink-0">
-              ☁️
+            <div className="h-9 w-9 grid place-items-center rounded-xl bg-[#fbf2e3] text-[#7a4c28] shrink-0">
+              <Wind className="w-4 h-4 text-[#7a4c28]" />
             </div>
             <div className="text-left">
               <p className="text-[11px] font-semibold tracking-wider text-[#7a4c28] uppercase">Stress</p>
