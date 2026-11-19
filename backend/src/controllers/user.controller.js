@@ -5,6 +5,24 @@ import { User } from "../models/user.model.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import jwt from "jsonwebtoken";
 
+// Without maxAge these are browser-session cookies and vanish on browser
+// close, killing the session even though the JWTs live 1d / 10d.
+const ACCESS_COOKIE_MAX_AGE = 24 * 60 * 60 * 1000; // 1d, matches ACCESS_TOKEN_EXPIRY
+const REFRESH_COOKIE_MAX_AGE = 10 * 24 * 60 * 60 * 1000; // 10d, matches REFRESH_TOKEN_EXPIRY
+const cookieOptions = (maxAge) => ({
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    maxAge,
+    sameSite: "lax",
+    path: "/",
+});
+const clearCookieOptions = () => ({
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+});
+
 const generateAccessAndRefreshTokens = async (userId) => {
     try {
         const user = await User.findById(userId);
@@ -16,6 +34,7 @@ const generateAccessAndRefreshTokens = async (userId) => {
 
         return { accessToken, refreshToken };
     } catch (error) {
+        console.error("Error generating access/refresh tokens:", error);
         throw new ApiError(
             500,
             "Something went wrong while generating access and refresh tokens"
@@ -79,9 +98,22 @@ const registerUser = asyncHandler(async (req, res) => {
         throw new ApiError(500, "Something went wrong while registering the user");
     }
 
+    // Log the new user in immediately so signup does not bounce to /login.
+    const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
+        user._id
+    );
+
     return res
         .status(201)
-        .json(new ApiResponse(201, createdUser, "User registered successfully"));
+        .cookie("accessToken", accessToken, cookieOptions(ACCESS_COOKIE_MAX_AGE))
+        .cookie("refreshToken", refreshToken, cookieOptions(REFRESH_COOKIE_MAX_AGE))
+        .json(
+            new ApiResponse(
+                201,
+                { user: createdUser, accessToken, refreshToken },
+                "User registered successfully"
+            )
+        );
 });
 
 const loginUser = asyncHandler(async (req, res) => {
@@ -120,15 +152,10 @@ const loginUser = asyncHandler(async (req, res) => {
         "-password -refreshToken"
     );
 
-    const cookieOptions = {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-    };
-
     return res
         .status(200)
-        .cookie("accessToken", accessToken, cookieOptions)
-        .cookie("refreshToken", refreshToken, cookieOptions)
+        .cookie("accessToken", accessToken, cookieOptions(ACCESS_COOKIE_MAX_AGE))
+        .cookie("refreshToken", refreshToken, cookieOptions(REFRESH_COOKIE_MAX_AGE))
         .json(
             new ApiResponse(
                 200,
@@ -155,15 +182,10 @@ const logoutUser = asyncHandler(async (req, res) => {
         }
     );
 
-    const cookieOptions = {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-    };
-
     return res
         .status(200)
-        .clearCookie("accessToken", cookieOptions)
-        .clearCookie("refreshToken", cookieOptions)
+        .clearCookie("accessToken", clearCookieOptions())
+        .clearCookie("refreshToken", clearCookieOptions())
         .json(new ApiResponse(200, {}, "User logged out successfully"));
 });
 
@@ -191,18 +213,13 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
             throw new ApiError(401, "Refresh token is expired or has been used");
         }
 
-        const cookieOptions = {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-        };
-
         const { accessToken, refreshToken: newRefreshToken } =
             await generateAccessAndRefreshTokens(user._id);
 
         return res
             .status(200)
-            .cookie("accessToken", accessToken, cookieOptions)
-            .cookie("refreshToken", newRefreshToken, cookieOptions)
+            .cookie("accessToken", accessToken, cookieOptions(ACCESS_COOKIE_MAX_AGE))
+            .cookie("refreshToken", newRefreshToken, cookieOptions(REFRESH_COOKIE_MAX_AGE))
             .json(
                 new ApiResponse(
                     200,
@@ -211,6 +228,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
                 )
             );
     } catch (error) {
+        if (error instanceof ApiError) throw error;
         throw new ApiError(401, error?.message || "Invalid refresh token");
     }
 });
