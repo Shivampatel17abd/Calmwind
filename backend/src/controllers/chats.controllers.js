@@ -1,43 +1,52 @@
 import mongoose from "mongoose";
-import {ApiResponse} from'../utils/ApiResponse.js';
-import {ApiError} from '../utils/ApiError.js';
+import { ApiResponse } from '../utils/ApiResponse.js';
+import { ApiError } from '../utils/ApiError.js';
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { Chat } from "../models/chat.model.js";
+import { generateLLMAdvice } from "../services/llm_service.js";
 
-const createChat = asyncHandler(async(req,res)=>{
-    const {userId,query} = req.body;
-    
-    console.log(userId,query);
+const createChat = asyncHandler(async (req, res) => {
+    const { userId, query } = req.body;
 
-    if(!userId || !query){
+    console.log(userId, query);
+
+    if (!userId || !query) {
         throw new ApiError(400, "All fields  are required");
     }
 
-    const newChat = Chat.create({userId,query});
+    const chat_his = await Chat.find({ userId }).sort({ createChat: -1 });
 
-    if(!newChat){
+    const llm_output = await generateLLMAdvice(query, chat_his);
+
+    console.log(llm_output)
+
+
+
+    const newChat = await Chat.create({ userId, query });
+
+    if (!newChat) {
         throw new ApiError(500, "Failed to create chat");
     }
 
-    return res.status(201).json(new ApiResponse(201, newChat, "Chat created successfully"));
+    return res.status(201).json(new ApiResponse(201, llm_output, "llm_succesfull give the output"));
 })
 
 
-const getChatsByUserId = asyncHandler(async(req,res)=>{
+const getChatsByUserId = asyncHandler(async (req, res) => {
 
-    const {userId} = req.query;
+    const { userId } = req.query;
 
     console.log(userId);
 
-    if(!userId){
-        throw new ApiError(400,"userId is required");
+    if (!userId) {
+        throw new ApiError(400, "userId is required");
     }
 
-    const chats = await Chat.find({userId}).sort({createChat:-1});
+    const chats = await Chat.find({ userId }).sort({ createChat: -1 });
 
 
-    if(chats.length === 0){
-        throw new ApiError(404,"No chats found for the give userId");
+    if (chats.length === 0) {
+        throw new ApiError(404, "No chats found for the give userId");
 
     }
     return res.status(200).json(new ApiResponse(200, chats, "Chats found successfully"));
