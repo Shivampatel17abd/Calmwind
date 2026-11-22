@@ -3,9 +3,6 @@ import CalmCard from "../common/CalmCard";
 import ProgressBar from "../common/ProgressBar";
 import SectionBadge from "../common/SectionBadge";
 
-/**
- * Displays recent mental health check-ins stored locally in the browser.
- */
 export default function CheckInHistory({ history = [], onClear }) {
   if (history.length === 0) return null;
 

@@ -3,9 +3,6 @@ import CalmCard from "../common/CalmCard";
 import ProgressBar from "../common/ProgressBar";
 import SectionBadge from "../common/SectionBadge";
 
-/**
- * Multi-step assessment shell reusing CalmCard, SectionBadge, and ProgressBar.
- */
 export default function AssessmentStepper({
   step,
   totalSteps,

@@ -75,10 +75,6 @@ export const INITIAL_NOTES = [
   },
 ];
 
-/**
- * Retrieves the current logged-in user ID or a stable guest student ObjectId (24 hex chars)
- * compatible with MongoDB's Schema.Types.ObjectId.
- */
 export function getCurrentUserId() {
   try {
     const rawUser = window.localStorage.getItem("user");
@@ -93,7 +89,6 @@ export function getCurrentUserId() {
 
     let guestId = window.localStorage.getItem(GUEST_USER_ID_KEY);
     if (!guestId || guestId.length !== 24) {
-      // Valid 24-character hexadecimal ObjectId representation
       guestId = "673500000000000000000001";
       window.localStorage.setItem(GUEST_USER_ID_KEY, guestId);
     }
@@ -103,9 +98,6 @@ export function getCurrentUserId() {
   }
 }
 
-/**
- * Formats a frontend note item into the string payload required by backend note field.
- */
 export function formatNoteForBackend({ text, category, completed, pinned }) {
   return JSON.stringify({
     text: text.trim(),
@@ -115,9 +107,6 @@ export function formatNoteForBackend({ text, category, completed, pinned }) {
   });
 }
 
-/**
- * Parses a backend database note object into our frontend note model.
- */
 export function parseBackendNote(dbItem) {
   let text = dbItem.note || "";
   let category = "task";
@@ -191,7 +180,6 @@ export function saveNotes(notes) {
   try {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
   } catch {
-    // Graceful fallback
   }
   return notes;
 }

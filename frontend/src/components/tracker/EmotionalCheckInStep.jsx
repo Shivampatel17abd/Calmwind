@@ -14,10 +14,6 @@ function getIntensityBadge(val) {
   return `${val}/10 · ${level}`;
 }
 
-/**
- * Step 1: Collects core emotional state (mood, stress, anxiety, focus/overwhelm)
- * by composing reusable OptionSelector and RangeSliderField components.
- */
 export default function EmotionalCheckInStep({ form, onUpdate }) {
   return (
     <div>

@@ -20,7 +20,6 @@ function Signup() {
   const navigate = useNavigate();
   const { register, isAuthenticated, isLoading } = useAuth();
 
-  // Already signed in: signup is done, go straight to the sanctuary.
   if (!isLoading && isAuthenticated) {
     return <Navigate to="/app" replace />;
   }
@@ -75,7 +74,6 @@ function Signup() {
         avatar,
       });
 
-      // Register now returns tokens + sets cookies, so we're already logged in.
       navigate("/app", { replace: true });
     } catch (err) {
       setError(err?.message || "Could not create your account. Please try again.");
@@ -87,7 +85,6 @@ function Signup() {
   return (
     <main className="calm-bg flex min-h-screen flex-col items-center justify-center px-4 pt-8 pb-5 text-[#243b32] max-[480px]:px-3 max-[480px]:py-5">
       <section className="animate-fade-in w-full max-w-[460px] rounded-[24px] border border-[#e7e9df] bg-[#fffefa] px-8 sm:px-10 py-8 shadow-[0_18px_55px_rgba(39,62,48,0.08)]">
-        {/* Brand */}
         <Link
           to="/"
           className="flex items-center gap-2.5 text-[22px] font-bold tracking-tight text-[#243b32] no-underline group"
@@ -101,7 +98,6 @@ function Signup() {
           <span className="font-serif font-medium">CalmWind</span>
         </Link>
 
-        {/* Welcome */}
         <div className="my-6">
           <p className="mb-2 text-[11px] font-bold tracking-[2px] text-[#69836b] uppercase">
             Your space to grow
@@ -116,7 +112,6 @@ function Signup() {
           </p>
         </div>
 
-        {/* Registration Form */}
         <form onSubmit={handleSubmit} className="space-y-3.5">
           <div>
             <label
@@ -276,7 +271,6 @@ function Signup() {
           )}
         </form>
 
-        {/* Login Link */}
         <p className="mt-5 text-center text-xs text-[#777e75]">
           Already have an account?{" "}
           <Link
@@ -287,7 +281,6 @@ function Signup() {
           </Link>
         </p>
 
-        {/* Privacy Note */}
         <div className="mt-5 flex items-center justify-center gap-2 border-t border-[#eceee7] pt-4 text-center text-[11px] text-[#858b81]">
           <span className="text-[#6a8d6e]">♡</span>
           <span>Your wellbeing matters.</span>

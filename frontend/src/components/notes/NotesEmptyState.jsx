@@ -1,9 +1,6 @@
 import { ClipboardList, Plus, RotateCcw } from "lucide-react";
 import CalmCard from "../common/CalmCard";
 
-/**
- * Empty state card for when no notes match search or category filter.
- */
 export default function NotesEmptyState({
   isFiltered = false,
   onResetFilter,

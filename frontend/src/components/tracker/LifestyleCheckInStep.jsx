@@ -15,10 +15,6 @@ function getSleepBadge(hours) {
   return `${hours} hrs · ${note}`;
 }
 
-/**
- * Step 2: Collects sleep, energy, movement, support, self-care, and optional thoughts
- * by reusing RangeSliderField and mapping OptionSelector across question definitions.
- */
 export default function LifestyleCheckInStep({ form, onUpdate }) {
   return (
     <div>

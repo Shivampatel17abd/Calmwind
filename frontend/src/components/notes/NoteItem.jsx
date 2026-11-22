@@ -30,9 +30,6 @@ const CATEGORY_MAP = {
   },
 };
 
-/**
- * Reusable point item card reusing CalmCard and SectionBadge.
- */
 export default function NoteItem({
   note,
   onToggleCompleted,
@@ -49,7 +46,6 @@ export default function NoteItem({
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
     } catch {
-      // Fallback
     }
   };
 
@@ -62,7 +58,6 @@ export default function NoteItem({
       } ${note.pinned ? "border-l-4 border-l-[#355b44]" : ""}`}
     >
       <div className="flex items-start gap-3">
-        {/* Completion Checkbox */}
         <button
           type="button"
           role="checkbox"
@@ -78,7 +73,6 @@ export default function NoteItem({
           {note.completed && <Check size={13} strokeWidth={3} />}
         </button>
 
-        {/* Note Body */}
         <div className="flex-1 min-w-0">
           <div className="flex flex-wrap items-center gap-2 mb-1.5">
             <SectionBadge
@@ -112,7 +106,6 @@ export default function NoteItem({
           </p>
         </div>
 
-        {/* Action Buttons */}
         <div className="flex items-center gap-1 shrink-0 pt-0.5">
           <button
             type="button"

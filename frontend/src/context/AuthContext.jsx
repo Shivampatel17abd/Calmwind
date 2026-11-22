@@ -26,7 +26,6 @@ function cacheUser(user) {
     if (user) localStorage.setItem(CACHED_USER_KEY, JSON.stringify(user));
     else localStorage.removeItem(CACHED_USER_KEY);
   } catch {
-    // ignore
   }
 }
 
@@ -39,11 +38,6 @@ export function AuthProvider({ children }) {
     cacheUser(next);
   }, []);
 
-  // Restore session on load: cookie and/or stored Bearer token via current-user.
-  // apiRequest auto-refreshes once on 401 using the refresh token.
-  // Only a definitive 401 signs the user out. A network error (status 0),
-  // 5xx, or a backend restart must NOT destroy an otherwise valid session —
-  // keep the cached user and tokens and let the next request retry.
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -55,7 +49,6 @@ export function AuthProvider({ children }) {
           clearTokens();
           setUser(null);
         }
-        // Transient failure: keep cached user/tokens, stay signed in.
       } finally {
         if (!cancelled) setIsLoading(false);
       }
@@ -87,7 +80,6 @@ export function AuthProvider({ children }) {
     try {
       await logoutUser();
     } catch {
-      // Session is cleared locally even if the server call fails.
     } finally {
       clearTokens();
       setUser(null);

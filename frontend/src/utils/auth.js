@@ -15,8 +15,6 @@ export function normalizeUser(raw) {
   };
 }
 
-// POST /api/v1/users/register — multipart so optional avatar/coverImage work.
-// Backend logs the new user in: sets cookies and returns tokens + user.
 export async function registerUser({ fullName, username, email, password, avatar, coverImage }) {
   const form = new FormData();
   form.append("fullName", fullName.trim());
@@ -33,12 +31,9 @@ export async function registerUser({ fullName, username, email, password, avatar
   });
   const data = payload?.data || {};
   storeTokens(data);
-  // New shape: { user, accessToken, refreshToken }; tolerate old bare-user shape.
   return normalizeUser(data.user || data);
 }
 
-// POST /api/v1/users/login — accepts email OR username plus password.
-// Sets httpOnly cookies and also returns tokens in the body.
 export async function loginUser({ identifier, password }) {
   const value = identifier.trim().toLowerCase();
   const body = value.includes("@")
@@ -51,7 +46,6 @@ export async function loginUser({ identifier, password }) {
   return normalizeUser(data.user);
 }
 
-// POST /api/v1/users/logout (secured)
 export async function logoutUser() {
   try {
     await apiRequest("/users/logout", { method: "POST", body: {} });
@@ -60,13 +54,11 @@ export async function logoutUser() {
   }
 }
 
-// GET /api/v1/users/current-user (secured)
 export async function fetchCurrentUser() {
   const payload = await apiRequest("/users/current-user");
   return normalizeUser(payload?.data);
 }
 
-// PATCH /api/v1/users/update-account (secured) — fullName + email only.
 export async function updateAccount({ fullName, email }) {
   const payload = await apiRequest("/users/update-account", {
     method: "PATCH",
@@ -75,7 +67,6 @@ export async function updateAccount({ fullName, email }) {
   return normalizeUser(payload?.data);
 }
 
-// POST /api/v1/users/change-password (secured)
 export async function changePassword({ oldPassword, newPassword }) {
   const payload = await apiRequest("/users/change-password", {
     method: "POST",

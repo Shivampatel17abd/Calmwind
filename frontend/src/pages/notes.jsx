@@ -40,7 +40,6 @@ export default function Notes() {
     });
   };
 
-  // Fetch notes from backend on mount or when requested
   const fetchBackendNotes = async (silent = false) => {
     if (!silent) setIsSyncing(true);
     try {
@@ -53,7 +52,6 @@ export default function Notes() {
       }
       setSyncStatus("connected");
     } catch {
-      // Backend not running or offline: graceful fallback to local storage
       setSyncStatus("offline");
     } finally {
       if (!silent) setIsSyncing(false);
@@ -68,16 +66,13 @@ export default function Notes() {
   const handleAddNote = async ({ text, category, pinned }) => {
     const localItem = createNoteItem({ text, category, pinned });
 
-    // Optimistic UI update
     updateNotesState((prev) => [localItem, ...prev]);
 
-    // Async sync with backend
     try {
       const payload = formatNoteForBackend({ text, category, completed: false, pinned });
       const res = await createNoteApi({ userId, note: payload });
 
       if (res?.data?._id) {
-        // Update local item with real MongoDB _id
         updateNotesState((prev) =>
           prev.map((item) =>
             item.id === localItem.id
@@ -105,15 +100,12 @@ export default function Notes() {
   };
 
   const handleDelete = async (id) => {
-    // Optimistic delete
     updateNotesState((prev) => prev.filter((n) => n.id !== id));
 
-    // If ID is a 24-character hex MongoDB ID, notify backend
     if (/^[0-9a-fA-F]{24}$/.test(id)) {
       try {
         await deleteNoteApi(id);
       } catch {
-        // Silently handled; item is already deleted locally
       }
     }
   };
@@ -122,7 +114,6 @@ export default function Notes() {
     const toDelete = notes.filter((n) => n.completed);
     updateNotesState((prev) => prev.filter((n) => !n.completed));
 
-    // Delete completed from backend in parallel
     for (const item of toDelete) {
       if (/^[0-9a-fA-F]{24}$/.test(item.id)) {
         deleteNoteApi(item.id).catch(() => {});
@@ -172,11 +163,9 @@ export default function Notes() {
       <Navbar />
 
       <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
-        {/* Header & Sync status indicator */}
         <div className="relative">
           <NotesHeader />
 
-          {/* Minimal Sync Status Pill */}
           <div className="flex items-center justify-center gap-2 mb-6">
             <span
               className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border ${

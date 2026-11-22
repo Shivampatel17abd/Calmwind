@@ -1,7 +1,5 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "/api/v1";
 
-// localStorage (not sessionStorage) so the session survives new tabs and
-// browser restarts, matching the 1d/10d cookie + JWT lifetimes.
 const ACCESS_TOKEN_KEY = "calmwind_access_token";
 const REFRESH_TOKEN_KEY = "calmwind_refresh_token";
 
@@ -35,7 +33,6 @@ export function storeTokens({ accessToken, refreshToken } = {}) {
     if (accessToken) localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
     if (refreshToken) localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
   } catch {
-    // localStorage unavailable; httpOnly cookies still carry the session.
   }
 }
 
@@ -44,7 +41,6 @@ export function clearTokens() {
     localStorage.removeItem(ACCESS_TOKEN_KEY);
     localStorage.removeItem(REFRESH_TOKEN_KEY);
   } catch {
-    // ignore
   }
 }
 
@@ -122,13 +118,10 @@ export async function apiRequest(path, options = {}) {
       try {
         await refreshAccessToken();
       } catch {
-        // Refresh definitively failed: drop the cached user too so storage
-        // doesn't claim a session that no longer exists.
         clearTokens();
         try {
           localStorage.removeItem("calmwind_auth_user");
         } catch {
-          // ignore
         }
         throw error;
       }

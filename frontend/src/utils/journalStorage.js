@@ -73,7 +73,6 @@ export function saveJournalEntry(entry) {
   const now = new Date().toISOString();
 
   if (entry.id) {
-    // update
     const updated = entries.map((item) =>
       item.id === entry.id
         ? {
@@ -86,7 +85,6 @@ export function saveJournalEntry(entry) {
     localStorage.setItem(STORAGE_KEYS.ENTRIES, JSON.stringify(updated));
     return entry;
   } else {
-    // create
     const newEntry = {
       ...entry,
       id: "entry-" + Date.now() + "-" + Math.random().toString(36).slice(2, 7),
@@ -119,7 +117,6 @@ export function saveJournalDraft(draft) {
   try {
     localStorage.setItem(STORAGE_KEYS.DRAFT, JSON.stringify(draft));
   } catch {
-    // ignore
   }
 }
 
@@ -127,9 +124,6 @@ export function clearJournalDraft() {
   try {
     localStorage.removeItem(STORAGE_KEYS.DRAFT);
   } catch {
-    // ignore
   }
 }
 
-// User identity is owned by the backend auth session (see context/AuthContext).
-// This module only stores journal entries and drafts locally for now.

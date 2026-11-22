@@ -19,7 +19,6 @@ function Login() {
   const from = location.state?.from;
   const redirectTo = from ? `${from.pathname || "/app"}${from.search || ""}` : "/app";
 
-  // Already signed in: never show the login form again (e.g. after visiting Home).
   if (!isLoading && isAuthenticated) {
     return <Navigate to={redirectTo} replace />;
   }

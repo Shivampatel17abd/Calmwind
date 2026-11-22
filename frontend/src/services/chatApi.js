@@ -9,11 +9,6 @@ function normalizeSource(source) {
   };
 }
 
-/**
- * Sends one message to the RAG companion:
- * POST /api/v1/chats/create-chat  Body: { userId, query }
- * Returns { reply, sources: [{ source, category, score }] }.
- */
 export async function sendChatMessage(userId, query) {
   const payload = await apiRequest("/chats/create-chat", {
     method: "POST",
@@ -28,13 +23,6 @@ export async function sendChatMessage(userId, query) {
   };
 }
 
-/**
- * Loads past chats for a user:
- * GET /api/v1/chats/get-chats?userId=...
- * Backend currently stores only the user's query (no assistant reply),
- * so each entry maps to a single user message, oldest first.
- * 404 means "no chats yet" and resolves to an empty list.
- */
 export async function getChatHistory(userId) {
   let payload;
   try {

@@ -97,12 +97,10 @@ export function EmptyJournalArt({ className = "w-40 h-40" }) {
       className={className}
       aria-hidden="true"
     >
-      {/* Soft landscape hill */}
       <ellipse cx="80" cy="120" rx="70" ry="30" fill="#eef2ea" />
       <ellipse cx="50" cy="124" rx="45" ry="22" fill="#e2ebdc" />
       <ellipse cx="110" cy="126" rx="40" ry="20" fill="#d8e5d1" />
 
-      {/* Notebook outline */}
       <rect
         x="55"
         y="45"
@@ -141,7 +139,6 @@ export function EmptyJournalArt({ className = "w-40 h-40" }) {
         strokeLinecap="round"
       />
 
-      {/* Delicate sprout emerging from book */}
       <path
         d="M80 45V30"
         stroke="#355b44"
@@ -163,7 +160,6 @@ export function EmptyJournalArt({ className = "w-40 h-40" }) {
         strokeLinejoin="round"
       />
 
-      {/* Floating stars/peace sparkles */}
       <circle cx="40" cy="40" r="2" fill="#cadcbd" />
       <circle cx="120" cy="48" r="1.5" fill="#cadcbd" />
       <circle cx="105" cy="25" r="2.5" fill="#8bb99a" />

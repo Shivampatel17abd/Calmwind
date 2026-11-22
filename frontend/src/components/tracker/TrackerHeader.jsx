@@ -2,10 +2,6 @@ import SectionBadge from "../common/SectionBadge";
 import MetricCard from "../common/MetricCard";
 import { WELLNESS_DIMENSIONS } from "../../utils/mentalHealthModel";
 
-/**
- * Hero header for the Mental Health Tracker page using CalmWind's signature
- * serif typography, ambient sage glow, and reusable MetricCards.
- */
 export default function TrackerHeader({ isCompleted = false }) {
   return (
     <header className="relative text-center max-w-4xl mx-auto mb-10 sm:mb-12">

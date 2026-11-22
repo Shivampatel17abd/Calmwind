@@ -3,9 +3,6 @@ import CalmCard from "../common/CalmCard";
 import MetricCard from "../common/MetricCard";
 import ProgressBar from "../common/ProgressBar";
 
-/**
- * Reusable stats summary card for the Notepad, reusing MetricCard and ProgressBar.
- */
 export default function NotesStats({
   total = 0,
   completed = 0,

@@ -8,9 +8,6 @@ const FILTER_ITEMS = [
   { id: "completed", label: "Done", icon: CheckCircle2 },
 ];
 
-/**
- * Filter bar for filtering notes by category or search text.
- */
 export default function NotesFilterBar({
   activeFilter,
   onFilterChange,
@@ -23,7 +20,6 @@ export default function NotesFilterBar({
   return (
     <div className="max-w-3xl mx-auto mb-5 space-y-3">
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-        {/* Category Pills */}
         <div className="flex flex-wrap items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
           {FILTER_ITEMS.map((item) => {
             const count = counts[item.id] || 0;
@@ -55,7 +51,6 @@ export default function NotesFilterBar({
           })}
         </div>
 
-        {/* Clear Completed Action */}
         {hasCompleted && (
           <button
             type="button"
@@ -67,7 +62,6 @@ export default function NotesFilterBar({
         )}
       </div>
 
-      {/* Search Bar */}
       <div className="relative">
         <div className="absolute inset-y-0 left-3.5 flex items-center pointer-events-none text-[#7b827a]">
           <Search size={15} />

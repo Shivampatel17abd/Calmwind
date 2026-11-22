@@ -1,9 +1,5 @@
 import SectionBadge from "../common/SectionBadge";
 
-/**
- * Minimalist header for the Notepad page using CalmWind's signature
- * serif typography, ambient sage glow, and SectionBadge.
- */
 export default function NotesHeader() {
   return (
     <header className="relative text-center max-w-3xl mx-auto mb-8 sm:mb-10">

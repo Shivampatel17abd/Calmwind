@@ -1,10 +1,5 @@
 const API_BASE = import.meta.env.VITE_API_URL || "";
 
-/**
- * Creates a note on the backend:
- * POST /api/v1/notes/create_note
- * Body: { userId, note }
- */
 export async function createNoteApi({ userId, note }) {
   const response = await fetch(`${API_BASE}/api/v1/notes/create_note`, {
     method: "POST",
@@ -25,10 +20,6 @@ export async function createNoteApi({ userId, note }) {
   return data;
 }
 
-/**
- * Gets all notes for a user from the backend:
- * GET /api/v1/notes/get_notes?userId=...
- */
 export async function getNotesByUserIdApi(userId) {
   const response = await fetch(
     `${API_BASE}/api/v1/notes/get_notes?userId=${encodeURIComponent(userId)}`,
@@ -43,7 +34,6 @@ export async function getNotesByUserIdApi(userId) {
   const data = await response.json().catch(() => null);
 
   if (!response.ok) {
-    // 404 = no notes yet, 503 = backend offline
     if (response.status === 404 || response.status === 503) {
       return { data: [], offline: response.status === 503 };
     }
@@ -53,10 +43,6 @@ export async function getNotesByUserIdApi(userId) {
   return data;
 }
 
-/**
- * Gets a single note by noteId:
- * GET /api/v1/notes/get_note?noteId=...
- */
 export async function getNoteByIdApi(noteId) {
   const response = await fetch(
     `${API_BASE}/api/v1/notes/get_note?noteId=${encodeURIComponent(noteId)}`,
@@ -77,11 +63,6 @@ export async function getNoteByIdApi(noteId) {
   return data;
 }
 
-/**
- * Deletes a note on the backend:
- * DELETE /api/v1/notes/delete_note
- * Body: { noteId }
- */
 export async function deleteNoteApi(noteId) {
   const response = await fetch(`${API_BASE}/api/v1/notes/delete_note`, {
     method: "DELETE",

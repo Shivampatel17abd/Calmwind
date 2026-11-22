@@ -37,16 +37,11 @@ const BANNER_STYLES = {
   },
 };
 
-/**
- * Displays the computed Mental Health Status, domain breakdown, snapshot metrics,
- * personalized insights, and support guidance using reusable CalmWind components.
- */
 export default function MentalStatusResult({ result, onReset }) {
   const bannerStyle = BANNER_STYLES[result.tone] || BANNER_STYLES.sage;
 
   return (
     <div className="max-w-4xl mx-auto space-y-6 animate-fade-in-up">
-      {/* Primary Mental Health Status Banner */}
       <CalmCard tone={bannerStyle.cardTone} padding="lg">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-3 max-w-2xl">
@@ -89,7 +84,6 @@ export default function MentalStatusResult({ result, onReset }) {
         </div>
       </CalmCard>
 
-      {/* Domain Breakdown */}
       <CalmCard padding="md">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-5">
           <div>
@@ -121,7 +115,6 @@ export default function MentalStatusResult({ result, onReset }) {
         </div>
       </CalmCard>
 
-      {/* Snapshot Metrics Grid (reusing MetricCard) */}
       <div>
         <h3 className="font-serif text-xl font-medium text-[#243b32] mb-3 px-1">
           Your Check-in Snapshot
@@ -140,7 +133,6 @@ export default function MentalStatusResult({ result, onReset }) {
         </div>
       </div>
 
-      {/* Observations & Recommendations (reusing InsightListCard twice) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <InsightListCard
           title="Key Observations"
@@ -161,7 +153,6 @@ export default function MentalStatusResult({ result, onReset }) {
         />
       </div>
 
-      {/* Extra support prompt when strain or distress is elevated */}
       {result.needsSupportNotice && (
         <CalmCard tone="warm" padding="md">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -189,7 +180,6 @@ export default function MentalStatusResult({ result, onReset }) {
         </CalmCard>
       )}
 
-      {/* Disclaimer */}
       <CalmCard tone="warm" padding="sm">
         <div className="flex items-start gap-3">
           <ShieldCheck
@@ -208,7 +198,6 @@ export default function MentalStatusResult({ result, onReset }) {
         </div>
       </CalmCard>
 
-      {/* Actions */}
       <div className="flex flex-col sm:flex-row items-center gap-3.5 pt-2">
         <button
           type="button"

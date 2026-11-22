@@ -179,7 +179,6 @@ function buildInsights(form, scores) {
   const observations = [];
   const recommendations = [];
 
-  // Mood & Emotional balance
   if (form.mood === "Sad" || form.mood === "Very low") {
     observations.push("You reported feeling emotionally low or heavy lately.");
     recommendations.push(
@@ -191,7 +190,6 @@ function buildInsights(form, scores) {
     observations.push("Your recent mood is holding in a positive, steady place.");
   }
 
-  // Stress & Focus
   if (form.stress >= 7) {
     observations.push(`Your stress level (${form.stress}/10) is elevated.`);
     recommendations.push(
@@ -213,7 +211,6 @@ function buildInsights(form, scores) {
     );
   }
 
-  // Anxiety
   if (form.anxiety >= 7) {
     observations.push(`Anxiety feels frequent or intense (${form.anxiety}/10) at the moment.`);
     recommendations.push(
@@ -226,7 +223,6 @@ function buildInsights(form, scores) {
     );
   }
 
-  // Sleep & Energy
   if (form.sleepHours < 6) {
     observations.push(
       `Your average sleep (${form.sleepHours} hrs) is below the restorative 7–9 hour range.`
@@ -247,7 +243,6 @@ function buildInsights(form, scores) {
     );
   }
 
-  // Movement, Support & Self-Care
   if (form.exercise === "Never" || form.exercise === "Rarely") {
     recommendations.push(
       "Try a gentle 10–15 minute outdoor walk or light stretching to release built-up tension."
@@ -267,7 +262,6 @@ function buildInsights(form, scores) {
     );
   }
 
-  // Optional context reflection from notes
   const note = (form.concerns || "").toLowerCase();
   if (note.trim()) {
     if (note.includes("exam") || note.includes("study") || note.includes("deadline") || note.includes("assignment")) {
@@ -507,7 +501,6 @@ export function clearCheckInHistory() {
   try {
     window.localStorage.removeItem(STORAGE_KEY);
   } catch {
-    // Ignore storage quota / privacy mode errors
   }
   return [];
 }

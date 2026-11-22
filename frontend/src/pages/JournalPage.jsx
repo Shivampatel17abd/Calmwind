@@ -26,7 +26,6 @@ export default function JournalPage() {
   const [selectedTag, setSelectedTag] = useState("All");
   const [sortBy, setSortBy] = useState("newest"); // "newest" | "oldest"
 
-  // Modals state
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [entryToEdit, setEntryToEdit] = useState(null);
   const [selectedEntry, setSelectedEntry] = useState(null);
@@ -66,7 +65,6 @@ export default function JournalPage() {
     setIsEditorOpen(true);
   }
 
-  // Filter & Search logic
   const filteredEntries = entries
     .filter((entry) => {
       const matchesTag =
@@ -86,7 +84,6 @@ export default function JournalPage() {
 
   return (
     <div className="space-y-8 animate-fade-in">
-      {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 bg-[#355b44] text-white px-4 py-2.5 rounded-2xl shadow-lg flex items-center gap-2 text-xs sm:text-sm font-medium animate-fade-in">
           <CheckCircle className="w-4 h-4 text-[#cadcbd]" />
@@ -94,7 +91,6 @@ export default function JournalPage() {
         </div>
       )}
 
-      {/* Page Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#eceee7]">
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#e3ebd9] text-[#355b44] text-[11px] font-bold tracking-wider uppercase mb-2">
@@ -118,10 +114,8 @@ export default function JournalPage() {
         </button>
       </div>
 
-      {/* Search, Filter & Controls Bar */}
       <div className="bg-[#fffefa] border border-[#e7e9df] p-4 sm:p-5 rounded-[22px] shadow-xs space-y-4">
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-          {/* Search box */}
           <div className="relative flex-1">
             <Search className="w-4 h-4 text-[#8c9489] absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
@@ -133,7 +127,6 @@ export default function JournalPage() {
             />
           </div>
 
-          {/* Sort order toggle */}
           <div className="flex items-center gap-2">
             <span className="text-xs text-[#7b827a] hidden sm:inline">Sort:</span>
             <button
@@ -146,7 +139,6 @@ export default function JournalPage() {
           </div>
         </div>
 
-        {/* Mood Tag Filter Pills */}
         <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-[#f1f3ed]">
           <span className="text-xs font-semibold text-[#69836b] mr-1.5 flex items-center gap-1">
             <Filter className="w-3 h-3" />
@@ -184,7 +176,6 @@ export default function JournalPage() {
         </div>
       </div>
 
-      {/* Entries Grid or Empty State */}
       {filteredEntries.length === 0 ? (
         <div className="p-12 text-center bg-[#fffefa] border border-[#e7e9df] rounded-[26px] shadow-xs flex flex-col items-center justify-center space-y-4">
           <EmptyJournalArt className="w-36 h-36 mx-auto opacity-90" />
@@ -238,7 +229,6 @@ export default function JournalPage() {
                 className="p-6 bg-[#fffefa] border border-[#e7e9df] hover:border-[#cadcbd] rounded-[24px] shadow-[0_4px_20px_rgba(39,62,48,0.04)] hover:shadow-[0_16px_40px_rgba(39,62,48,0.08)] hover:-translate-y-1 transition-all duration-200 cursor-pointer flex flex-col justify-between group"
               >
                 <div>
-                  {/* Top card metadata */}
                   <div className="flex items-center justify-between gap-2 mb-3">
                     <span
                       className={`px-2.5 py-0.5 rounded-full text-[10px] font-medium border ${tagInfo.color}`}
@@ -256,12 +246,10 @@ export default function JournalPage() {
                     </span>
                   </div>
 
-                  {/* Title */}
                   <h3 className="font-serif text-lg font-medium text-[#243b32] group-hover:text-[#355b44] transition-colors leading-snug line-clamp-2">
                     {entry.title}
                   </h3>
 
-                  {/* Prompt tag if used */}
                   {entry.prompt && (
                     <div className="mt-2.5 p-2 rounded-xl bg-[#f5f8f2] border border-[#e0e8d7] text-[11px] text-[#4b7355] italic font-serif flex items-start gap-1.5">
                       <Sparkles className="w-3 h-3 text-[#52765a] shrink-0 mt-0.5" />
@@ -269,13 +257,11 @@ export default function JournalPage() {
                     </div>
                   )}
 
-                  {/* Excerpt */}
                   <p className="mt-3 text-xs sm:text-sm text-[#7b827a] leading-relaxed line-clamp-3 font-normal">
                     {entry.content}
                   </p>
                 </div>
 
-                {/* Bottom card footer */}
                 <div className="mt-5 pt-3 border-t border-[#f1f3ed] flex items-center justify-between text-xs">
                   <span className="text-[11px] text-[#8c9489]">
                     {wordCount} words • {readingTime}m read
@@ -311,7 +297,6 @@ export default function JournalPage() {
         </div>
       )}
 
-      {/* Editor Modal */}
       {isEditorOpen && (
         <JournalEditor
           entryToEdit={entryToEdit}
@@ -323,7 +308,6 @@ export default function JournalPage() {
         />
       )}
 
-      {/* Detail Viewer Modal */}
       {selectedEntry && (
         <JournalViewModal
           entry={selectedEntry}

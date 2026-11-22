@@ -30,7 +30,6 @@ export default function JournalViewModal({
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/35 backdrop-blur-xs flex items-center justify-center p-4 sm:p-6 animate-fade-in">
       <div className="bg-[#fffefa] border border-[#e7e9df] w-full max-w-2xl rounded-[26px] shadow-[0_25px_60px_rgba(39,62,48,0.16)] overflow-hidden flex flex-col max-h-[90vh]">
-        {/* Top Header */}
         <div className="px-6 sm:px-8 py-5 border-b border-[#eceee7] flex items-center justify-between bg-[#fbfaf6]">
           <span className={`px-3 py-1 rounded-full text-xs font-medium border ${moodTagInfo.color}`}>
             {entry.moodTag || "Reflection"}
@@ -65,7 +64,6 @@ export default function JournalViewModal({
           </div>
         </div>
 
-        {/* Content Body */}
         <div className="flex-1 overflow-y-auto p-6 sm:p-8 space-y-6">
           {showConfirmDelete && (
             <div className="p-4 rounded-2xl bg-[#faeae8] border border-[#f5d0cc] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 animate-fade-in">
@@ -127,7 +125,6 @@ export default function JournalViewModal({
           </div>
         </div>
 
-        {/* Footer */}
         <div className="px-6 sm:px-8 py-3.5 border-t border-[#eceee7] bg-[#fbfaf6] flex items-center justify-end">
           <button
             onClick={onClose}

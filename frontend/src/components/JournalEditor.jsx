@@ -23,7 +23,6 @@ export default function JournalEditor({
 }) {
   const isEditing = Boolean(entryToEdit?.id);
 
-  // Load from draft if new entry and draft exists
   const existingDraft = !isEditing ? getJournalDraft() : null;
 
   const [title, setTitle] = useState(
@@ -51,7 +50,6 @@ export default function JournalEditor({
     })
   );
 
-  // Auto-save draft when creating new entry
   useEffect(() => {
     if (!isEditing) {
       if (title.trim() || content.trim()) {
@@ -108,7 +106,6 @@ export default function JournalEditor({
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/35 backdrop-blur-xs flex items-center justify-center p-4 sm:p-6 animate-fade-in">
       <div className="bg-[#fffefa] border border-[#e7e9df] w-full max-w-3xl rounded-[26px] shadow-[0_25px_60px_rgba(39,62,48,0.16)] flex flex-col max-h-[92vh] overflow-hidden transition-all">
-        {/* Editor Top Bar */}
         <div className="px-6 sm:px-8 py-5 border-b border-[#eceee7] flex items-center justify-between bg-[#fbfaf6]">
           <div className="flex items-center gap-2.5">
             <span className="w-2.5 h-2.5 rounded-full bg-[#52765a]"></span>
@@ -134,7 +131,6 @@ export default function JournalEditor({
           </div>
         </div>
 
-        {/* Scrollable Editor Body */}
         <div className="flex-1 overflow-y-auto p-6 sm:p-8 space-y-6">
           {error && (
             <div className="p-3.5 rounded-xl bg-[#fbeeed] border border-[#f5d0cc] text-xs text-[#8e3c35]">
@@ -142,7 +138,6 @@ export default function JournalEditor({
             </div>
           )}
 
-          {/* Date & Meta Info */}
           <div className="flex flex-wrap items-center gap-4 text-xs text-[#7b827a]">
             <span className="inline-flex items-center gap-1.5">
               <Calendar className="w-3.5 h-3.5 text-[#62866b]" />
@@ -155,7 +150,6 @@ export default function JournalEditor({
             </span>
           </div>
 
-          {/* Title input */}
           <div>
             <input
               type="text"
@@ -170,7 +164,6 @@ export default function JournalEditor({
             />
           </div>
 
-          {/* Mood Tag Selector */}
           <div>
             <label className="block text-xs font-semibold text-[#69836b] uppercase tracking-wider mb-2.5">
               How does this moment feel?
@@ -196,7 +189,6 @@ export default function JournalEditor({
             </div>
           </div>
 
-          {/* Prompt Selector Accordion */}
           <div className="rounded-2xl border border-[#e2ebd9] bg-[#f8faf4] p-4">
             <div className="flex items-center justify-between">
               <button
@@ -253,7 +245,6 @@ export default function JournalEditor({
             )}
           </div>
 
-          {/* Main writing canvas */}
           <div>
             <textarea
               placeholder="What's on your mind? Take a deep breath and begin here..."
@@ -268,7 +259,6 @@ export default function JournalEditor({
           </div>
         </div>
 
-        {/* Editor Bottom Actions */}
         <div className="px-6 sm:px-8 py-4 border-t border-[#eceee7] bg-[#fbfaf6] flex items-center justify-between">
           <button
             type="button"

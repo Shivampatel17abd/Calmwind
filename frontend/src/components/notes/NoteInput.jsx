@@ -9,10 +9,6 @@ const CATEGORY_OPTIONS = [
   { id: "reflection", label: "Mindful Thought", icon: Sparkles, tone: "warm" },
 ];
 
-/**
- * Minimalist input card for creating points and health reminders.
- * Reuses CalmCard and standard CalmWind button styles.
- */
 export default function NoteInput({ onAddNote }) {
   const [text, setText] = useState("");
   const [category, setCategory] = useState("task");
@@ -53,7 +49,6 @@ export default function NoteInput({ onAddNote }) {
             Add a new point or reminder
           </label>
 
-          {/* Category Selector Pills */}
           <div className="flex flex-wrap items-center gap-1.5">
             {CATEGORY_OPTIONS.map((cat) => {
               const Icon = cat.icon;
@@ -77,7 +72,6 @@ export default function NoteInput({ onAddNote }) {
           </div>
         </div>
 
-        {/* Input Textarea */}
         <div className="relative">
           <textarea
             id="notepad-input"
@@ -96,7 +90,6 @@ export default function NoteInput({ onAddNote }) {
           />
         </div>
 
-        {/* Controls row */}
         <div className="flex flex-wrap items-center justify-between gap-3 mt-3 pt-3 border-t border-[#eceee7]">
           <label className="inline-flex items-center gap-2 text-xs font-medium text-[#7b827a] cursor-pointer hover:text-[#243b32] select-none">
             <input
@@ -125,7 +118,6 @@ export default function NoteInput({ onAddNote }) {
         </div>
       </form>
 
-      {/* Quick suggestions row */}
       <div className="mt-3.5 pt-3 border-t border-[#f3f5ed] flex items-center gap-2 overflow-x-auto text-xs pb-0.5">
         <span className="text-[11px] font-semibold text-[#7b827a] shrink-0 uppercase tracking-wider">
           Quick add:
