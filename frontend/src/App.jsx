@@ -17,6 +17,7 @@ import DashboardHome from "./pages/DashboardHome";
 import JournalPage from "./pages/JournalPage";
 import SupportPage from "./pages/SupportPage";
 import AccountPage from "./pages/AccountPage";
+import ChatPage from "./pages/ChatPage";
 import { AuthProvider } from "./context/AuthContext";
 
 function PublicLanding() {
@@ -65,6 +66,7 @@ export default function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/app" element={<AppLayout />}>
               <Route index element={<DashboardHome />} />
+              <Route path="chat" element={<ChatPage />} />
               <Route path="journal" element={<JournalPage />} />
               <Route path="support" element={<SupportPage />} />
               <Route path="account" element={<AccountPage />} />
@@ -72,6 +74,7 @@ export default function App() {
           </Route>
 
           {/* Convenient Aliases */}
+          <Route path="/chat" element={<Navigate to="/app/chat" replace />} />
           <Route path="/journal" element={<Navigate to="/app/journal" replace />} />
           <Route path="/dashboard" element={<Navigate to="/app" replace />} />
           <Route path="/help" element={<Navigate to="/app/support" replace />} />

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
+  MessageCircle,
   BookOpen,
   HeartHandshake,
   LogOut,
@@ -37,6 +38,12 @@ export default function AppLayout() {
       icon: LayoutDashboard,
     },
     {
+      to: "/app/chat",
+      end: false,
+      label: "AI Companion",
+      icon: MessageCircle,
+    },
+    {
       to: "/app/journal",
       end: false,
       label: "My Journal",
@@ -69,7 +76,7 @@ export default function AppLayout() {
 
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 bg-[#f4f6ee] border border-[#e4ebd9] py-1 px-2.5 rounded-full text-xs font-medium">
-            <span className="w-2 h-2 rounded-full bg-[#52765a] animate-pulse"></span>
+            <span className="w-2 h-2 rounded-full bg-[#6d8a72]"></span>
             <span className="text-[#355b44]">{user?.name?.split(" ")[0] || "Student"}</span>
           </div>
           <button
@@ -149,25 +156,19 @@ export default function AppLayout() {
 
         {/* Bottom Support Callout & User Profile */}
         <div className="space-y-4 pt-6 border-t border-[#eceee7]">
-          {/* Urgent Support SOS Card */}
-          <div className="p-4 rounded-2xl bg-[#fffefa] border border-[#ebdccb] shadow-xs">
-            <div className="flex items-center gap-2 mb-1.5">
-              <span className="flex h-2 w-2 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-600"></span>
-              </span>
-              <p className="text-xs font-semibold text-[#7a4c28]">Feeling overwhelmed?</p>
-            </div>
-            <p className="text-[11px] text-[#8c674b] leading-relaxed mb-3">
-              Campus counselors and 24/7 crisis lines are here for you anytime.
+          {/* Quiet support link — always findable, never alarming */}
+          <div className="p-4 rounded-2xl bg-[#f8f9f6] border border-[#e8eae2]">
+            <p className="text-sm font-medium text-[#2e3d36]">Feeling overwhelmed?</p>
+            <p className="text-sm text-[#66736a] leading-relaxed mt-1 mb-3">
+              Campus counselors and 24/7 lines are here, anytime.
             </p>
             <Link
               to="/app/support"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-[#c55d51] hover:bg-[#b04f44] text-white text-xs font-medium shadow-xs transition-colors duration-150"
+              className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-[#e6ede1] hover:bg-[#dde5d8] text-[#3a5f4a] text-sm font-medium transition-colors"
             >
               <PhoneCall className="w-3.5 h-3.5" />
-              <span>SOS & Helplines</span>
+              <span>Support & helplines</span>
             </Link>
           </div>
 

@@ -54,34 +54,34 @@ export default function SupportPage() {
 
   const helplines = [
     {
-      title: "988 Suicide & Crisis Lifeline",
-      desc: "Free, confidential 24/7 support for anyone in emotional distress or suicidal crisis.",
-      actionText: "Call or Text 988",
-      actionHref: "tel:988",
+      title: "Tele-MANAS (National Tele Mental Health)",
+      desc: "Government of India's free 24/7 mental health helpline, in multiple languages. Also reachable toll-free on 1-800-891-4416.",
+      actionText: "Call 14416",
+      actionHref: "tel:14416",
       badge: "24/7 Free & Confidential",
       primary: true,
     },
     {
-      title: "Crisis Text Line",
-      desc: "Text with a trained volunteer crisis counselor 24/7 for immediate support.",
-      actionText: "Text HOME to 741741",
-      actionHref: "sms:741741",
-      badge: "24/7 Text Support",
+      title: "Vandrevala Foundation",
+      desc: "Free, confidential 24/7 mental health support by trained counsellors, in multiple languages.",
+      actionText: "Call 1860-2662-345",
+      actionHref: "tel:18602662345",
+      badge: "24/7 Helpline",
       primary: false,
     },
     {
-      title: "The Trevor Project",
-      desc: "Crisis intervention and suicide prevention for LGBTQ+ young people.",
-      actionText: "Call 1-866-488-7386",
-      actionHref: "tel:18664887386",
-      badge: "LGBTQ+ Youth",
+      title: "AASRA",
+      desc: "Mumbai-based 24/7 suicide prevention and emotional support helpline.",
+      actionText: "Call +91 98204 66726",
+      actionHref: "tel:+919820466726",
+      badge: "Mumbai · 24/7",
       primary: false,
     },
     {
       title: "Campus Counseling Services",
       desc: "Connect with campus health centers, licensed university therapists, and drop-in counseling.",
       actionText: "Contact Student Health",
-      actionHref: "tel:988",
+      actionHref: "tel:14416",
       badge: "Student Health",
       primary: false,
     },
@@ -113,24 +113,24 @@ export default function SupportPage() {
             Need immediate help or someone to talk to?
           </h2>
           <p className="text-sm text-[#7a4c28] mt-1 max-w-xl leading-relaxed">
-            Call or text <strong>988</strong> anytime from anywhere in the US and Canada. You will be connected directly with trained counselors.
+            Call <strong>14416</strong> (Tele-MANAS) anytime, anywhere in India. You will be connected directly with trained counselors. In immediate danger, call <strong>112</strong>.
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-3 shrink-0">
           <a
-            href="tel:988"
+            href="tel:14416"
             className="px-5 py-3 rounded-xl bg-[#7a4c28] hover:bg-[#5c371d] text-white text-sm font-semibold shadow-sm hover:shadow transition-all inline-flex items-center gap-2"
           >
             <PhoneCall className="w-4 h-4" />
-            <span>Call 988 Now</span>
+            <span>Call 14416 Now</span>
           </a>
           <a
-            href="sms:741741"
+            href="tel:18008914416"
             className="px-4 py-3 rounded-xl bg-white text-[#7a4c28] border border-[#f0debe] hover:bg-[#fcf7ee] text-sm font-semibold transition-all inline-flex items-center gap-2"
           >
             <MessageSquare className="w-4 h-4" />
-            <span>Text 741741</span>
+            <span>Call 1-800-891-4416</span>
           </a>
         </div>
       </div>

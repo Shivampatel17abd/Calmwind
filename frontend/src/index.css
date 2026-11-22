@@ -1,52 +1,38 @@
 @import "tailwindcss";
 
 @theme {
-  --color-sage-50: #f7f9f4;
-  --color-sage-100: #f3f5ed;
-  --color-sage-200: #e7e9df;
-  --color-sage-300: #dce8d5;
-  --color-sage-400: #cadcbd;
-  --color-sage-500: #8bb99a;
-  --color-sage-600: #62866b;
-  --color-sage-700: #4b7355;
-  --color-forest-800: #355b44;
-  --color-forest-900: #243b32;
-  --color-forest-950: #1a2c25;
-  --color-cream-card: #fffefa;
-  --color-sage-muted: #7b827a;
+  /* Low-saturation sage / blue-green: hues linked to lower arousal, kept
+     muted (not vivid) — saturation, not hue alone, drives stimulation. */
+  --color-sage-50: #f8f9f6;
+  --color-sage-100: #f4f6f1;
+  --color-sage-200: #e8eae2;
+  --color-sage-300: #dde5d8;
+  --color-sage-400: #cbdac2;
+  --color-sage-500: #9db89f;
+  --color-sage-600: #6d8a72;
+  --color-sage-700: #55705c;
+  --color-forest-800: #3a5f4a;
+  --color-forest-900: #2e3d36;
+  --color-forest-950: #22302a;
+  --color-cream-card: #fdfdfa;
+  --color-sage-muted: #66736a;
 
-  --font-serif: "Playfair Display", Georgia, Cambria, "Times New Roman", serif;
+  /* Body + headings both in a plain sans: readability research favours
+     clean sans, >=16px, and 1.5+ line-height over decorative serifs. */
+  --font-serif: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-sans: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
-  --shadow-calm: 0 18px 55px rgba(39, 62, 48, 0.08);
-  --shadow-card-hover: 0 20px 40px rgba(39, 62, 48, 0.12);
-  --shadow-soft: 0 4px 20px rgba(39, 62, 48, 0.05);
+  /* Shadows are barely-there: depth cues without visual weight. */
+  --shadow-calm: 0 2px 12px rgba(46, 61, 54, 0.05);
+  --shadow-card-hover: 0 2px 12px rgba(46, 61, 54, 0.06);
+  --shadow-soft: 0 1px 6px rgba(46, 61, 54, 0.04);
 
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-float-slow: float 8s ease-in-out infinite reverse;
-  --animate-pulse-glow: pulse-glow 4s ease-in-out infinite;
-  --animate-fade-in: fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  --animate-fade-in-up: fade-in-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-8px);
-    }
-  }
-
-  @keyframes pulse-glow {
-    0%, 100% {
-      opacity: 0.5;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.85;
-      transform: scale(1.05);
-    }
-  }
+  /* No looping motion. A single short, gentle fade on first paint only. */
+  --animate-float: none;
+  --animate-float-slow: none;
+  --animate-pulse-glow: none;
+  --animate-fade-in: fade-in 0.35s ease-out forwards;
+  --animate-fade-in-up: fade-in 0.35s ease-out forwards;
 
   @keyframes fade-in {
     from {
@@ -56,53 +42,54 @@
       opacity: 1;
     }
   }
-
-  @keyframes fade-in-up {
-    from {
-      opacity: 0;
-      transform: translateY(16px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
 }
 
 html {
   scroll-behavior: smooth;
   font-family: var(--font-sans);
+  font-size: 16px;
   color: var(--color-forest-900);
   background-color: var(--color-sage-100);
 }
 
-/* Global calm atmosphere background */
-.calm-bg {
-  background-color: #f3f5ed;
-  background-image: 
-    radial-gradient(circle at 10% 10%, rgba(202, 220, 189, 0.45), transparent 35%),
-    radial-gradient(circle at 90% 80%, rgba(220, 232, 213, 0.4), transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(247, 249, 244, 0.6), transparent 60%);
+body {
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Glass card styling */
+h1,
+h2,
+h3 {
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+p {
+  line-height: 1.65;
+}
+
+/* One flat, quiet background — no glowing orbs or competing gradients. */
+.calm-bg {
+  background-color: #f4f6f1;
+}
+
+/* Flat card: soft border, almost no shadow, never lifts on hover. */
 .calm-card {
-  background-color: #fffefa;
-  border: 1px solid #e7e9df;
-  box-shadow: 0 18px 55px rgba(39, 62, 48, 0.08);
+  background-color: #fdfdfa;
+  border: 1px solid #e8eae2;
+  box-shadow: 0 2px 12px rgba(46, 61, 54, 0.05);
   border-radius: 20px;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-color 0.2s ease;
 }
 
 .calm-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 22px 50px rgba(39, 62, 48, 0.12);
-  border-color: #cadcbd;
+  border-color: #cbdac2;
 }
 
-/* Primary soothing button */
+/* Primary button: same calm green, no lift/scale on hover or press. */
 .btn-primary {
-  background-color: #355b44;
+  background-color: #3a5f4a;
   color: #ffffff;
   border-radius: 12px;
   font-weight: 600;
@@ -111,24 +98,16 @@ html {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 14px rgba(53, 91, 68, 0.2);
+  transition: background-color 0.2s ease;
 }
 
 .btn-primary:hover {
-  background-color: #294b37;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(53, 91, 68, 0.28);
+  background-color: #2f4f3d;
 }
 
-.btn-primary:active {
-  transform: scale(0.98);
-}
-
-/* Secondary calm pill button */
 .btn-secondary {
-  background-color: #dce8d5;
-  color: #355b44;
+  background-color: #e6ede1;
+  color: #3a5f4a;
   border-radius: 12px;
   font-weight: 600;
   padding: 10px 18px;
@@ -136,9 +115,31 @@ html {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
 .btn-secondary:hover {
-  background-color: #cadcbd;
+  background-color: #dde5d8;
+}
+
+/* Visible, gentle focus for keyboard users on every interactive element. */
+:focus-visible {
+  outline: 2px solid #6d8a72;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Honour the OS reduced-motion setting everywhere (vestibular, migraine,
+   anxiety and attention sensitivity) — no animation, no smooth scroll. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

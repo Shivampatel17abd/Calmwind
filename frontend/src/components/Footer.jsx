@@ -24,18 +24,18 @@ export default function Footer() {
 
           <div className="flex flex-wrap items-center gap-3 shrink-0">
             <a
-              href="tel:988"
+              href="tel:14416"
               className="px-4 py-2.5 rounded-xl bg-[#7a4c28] hover:bg-[#5c371d] text-white text-xs sm:text-sm font-semibold shadow-xs hover:shadow transition-all inline-flex items-center gap-2"
             >
-              <span>Call / Text 988</span>
+              <span>Call Tele-MANAS 14416</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </a>
             <a
-              href="sms:741741"
+              href="tel:18008914416"
               className="px-4 py-2.5 rounded-xl bg-white/80 hover:bg-white text-[#7a4c28] border border-[#f0debe] text-xs sm:text-sm font-semibold transition-all inline-flex items-center gap-2"
             >
               <MessageSquare className="w-3.5 h-3.5" />
-              <span>Text HOME to 741741</span>
+              <span>Call 1-800-891-4416</span>
             </a>
           </div>
         </div>

@@ -106,7 +106,7 @@ export default function Features() {
           return (
             <div
               key={item.title}
-              className="group relative p-7 bg-[#fffefa] border border-[#e7e9df] hover:border-[#cadcbd] rounded-[22px] shadow-[0_10px_35px_rgba(39,62,48,0.05)] hover:shadow-[0_20px_45px_rgba(39,62,48,0.1)] transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between"
+              className="group relative p-7 bg-[#fffefa] border border-[#e7e9df] hover:border-[#cadcbd] rounded-[22px] shadow-[0_10px_35px_rgba(39,62,48,0.05)] transition-colors flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-5">
@@ -125,7 +125,7 @@ export default function Features() {
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-[#f3f5ed] flex items-center gap-1.5 text-xs font-semibold text-[#4b7355] opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              <div className="mt-6 pt-4 border-t border-[#f3f5ed] flex items-center gap-1.5 text-xs font-semibold text-[#4b7355] ">
                 {item.to ? (
                   <Link
                     to={item.to}

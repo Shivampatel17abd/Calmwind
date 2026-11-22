@@ -79,10 +79,7 @@ export default function Navbar() {
             href="#help"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-sm font-medium text-[#7a4c28] bg-[#fbf2e3] border border-[#f0debe] rounded-full hover:bg-[#f6e5c8] transition-all duration-200"
           >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
-            </span>
+<span className="flex h-2 w-2 rounded-full bg-[#a98a68]"></span>
             Need help?
           </a>
 
