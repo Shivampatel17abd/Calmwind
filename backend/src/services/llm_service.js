@@ -21,6 +21,38 @@ emergency services or a trusted person.
 Keep responses conversational and easy to understand.
 `;
 
+// Pinned models (verified reachable for this API key). The floating
+// "gemini-flash-latest" alias kept returning 503 under load, so it is
+// only a last resort. Override with GEMINI_MODELS=comma,separated,list.
+const MODELS = (process.env.GEMINI_MODELS || "gemini-2.5-flash,gemini-3.5-flash,gemini-flash-latest")
+    .split(",")
+    .map((name) => name.trim())
+    .filter(Boolean);
+
+const RETRY_DELAYS_MS = [800, 2000];
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const isRetryable = (error) => error?.status === 503 || error?.status === 429;
+
+async function generateWithFallback(contents, config) {
+    let lastError;
+    for (const model of MODELS) {
+        for (let attempt = 0; attempt <= RETRY_DELAYS_MS.length; attempt++) {
+            try {
+                return await ai.models.generateContent({ model, contents, config });
+            } catch (error) {
+                lastError = error;
+                if (!isRetryable(error)) throw error;
+                if (attempt < RETRY_DELAYS_MS.length) {
+                    console.warn(`Gemini ${model} busy (attempt ${attempt + 1}), retrying...`);
+                    await sleep(RETRY_DELAYS_MS[attempt]);
+                }
+            }
+        }
+        console.warn(`Gemini ${model} unavailable, falling back to next model...`);
+    }
+    throw lastError;
+}
+
 export const generateLLMAdvice = async (message, history = []) => {
 
     try {
@@ -62,22 +94,19 @@ export const generateLLMAdvice = async (message, history = []) => {
         `;
 
 
-        const response = await ai.models.generateContent({
-            model: "gemini-flash-latest",
-
-            contents: [
+        const response = await generateWithFallback(
+            [
                 ...formattedHistory,
                 {
                     role: "user",
                     parts: [{ text: finalPrompt }]
                 }
             ],
-
-            config: {
+            {
                 systemInstruction: SYSTEM_PROMPT,
                 temperature: 0.7
             }
-        });
+        );
 
         return {
             reply: response.text,

@@ -93,12 +93,18 @@ export default function ChatPage() {
           },
         ]);
       } catch (error) {
+        const raw = error?.message || "";
+        const isTechnical =
+          error?.status >= 500 ||
+          /ssl|tls|packet length|fetch failed|enotfound|econn|socket|network/i.test(raw);
         setSendError({
           query,
           message:
             error?.status === 0
               ? "Can't reach CalmWind right now. Check that the backend is running, then retry."
-              : error?.message || "Something went wrong. Please retry.",
+              : isTechnical
+                ? "The companion couldn't reply just now — the AI service connection failed. Please retry in a moment."
+                : raw || "Something went wrong. Please retry.",
         });
       } finally {
         setIsSending(false);
