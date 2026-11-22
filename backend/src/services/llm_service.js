@@ -1,4 +1,5 @@
 import ai from "../config/gemini.js";
+import { retrieveRelevantChunks } from "./retrieval_service.js";
 
 const SYSTEM_PROMPT = `
 You are Calmwind, a supportive mental wellness assistant.
@@ -22,20 +23,44 @@ Keep responses conversational and easy to understand.
 
 export const generateLLMAdvice = async (message, history = []) => {
 
-
-    const formattedHistory = history.map((chat) => ({
-        role: chat.role === "assistant" || chat.role === "model"
-            ? "model"
-            : "user",
-
-        parts: [
-            {
-                text: String(chat.content ?? chat.parts?.[0]?.text ?? "")
-            }
-        ]
-    })).filter(chat => chat.parts[0].text.trim() !== "");
-
     try {
+
+        const relativechunks = await retrieveRelevantChunks(message);
+        const context = relativechunks.map((chunk, index) =>
+            `
+                Source ${index + 1}: ${chunk.source}
+
+                Content:
+                ${chunk.content}
+            `
+        ).join("\n\n");
+
+
+        const formattedHistory = history.map((chat) => ({
+            role: chat.role === "assistant" || chat.role === "model"
+                ? "model"
+                : "user",
+
+            parts: [
+                {
+                    text: String(chat.content ?? chat.parts?.[0]?.text ?? "")
+                }
+            ]
+        })).filter(chat => chat.parts[0].text.trim() !== "");
+
+
+        const finalPrompt = `
+            Knowledge context:
+
+            ${context || "No relevant knowledge was retrieved."}
+
+            User question:
+            ${message}
+
+            Answer using the context when relevant.
+            Do not fabricate sources.
+        `;
+
 
         const response = await ai.models.generateContent({
             model: "gemini-2.5-flash",
@@ -44,7 +69,7 @@ export const generateLLMAdvice = async (message, history = []) => {
                 ...formattedHistory,
                 {
                     role: "user",
-                    parts: [{ text: message }]
+                    parts: [{ text: finalPrompt }]
                 }
             ],
 
@@ -54,12 +79,19 @@ export const generateLLMAdvice = async (message, history = []) => {
             }
         });
 
-        return response.text;
+        return {
+            reply: response.text,
+            sources: relativechunks.map(chunk => ({
+                source: chunk.source,
+                category: chunk.category,
+                score: chunk.score
+            }))
+        };
 
     } catch (error) {
 
-        console.error("Gemini service error:", error);
+        console.error("RAG chatbot error:", error);
 
-        throw new Error("Unable to generate AI response");
+        throw error;
     }
 };

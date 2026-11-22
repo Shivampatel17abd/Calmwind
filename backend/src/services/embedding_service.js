@@ -1,8 +1,8 @@
-import ai from "../config/gemini";
+import ai from "../config/gemini.js";
 
 const EMBEDDING_MODEL = "gemini-embedding-001";
 
-export const generateEmbadding = async (text, taskType) => {
+export const generateEmbedding = async (text, taskType) => {
     try {
         const response = await ai.models.embedContent({
             model: EMBEDDING_MODEL,
