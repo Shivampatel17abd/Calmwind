@@ -12,43 +12,42 @@ import {
 } from "lucide-react";
 
 export default function SupportPage() {
-  // Grounding 4-7-8 Breathing Exercise
-  const [isBreathingActive, setIsBreathingActive] = useState(false);
-  const [breathPhase, setBreathPhase] = useState("Inhale"); // "Inhale" (4s) | "Hold" (7s) | "Exhale" (8s)
-  const [secondsLeft, setSecondsLeft] = useState(4);
+  const [breathingOn, setBreathingOn] = useState(false);
+  const [phase, setPhase] = useState("Inhale");
+  const [seconds, setSeconds] = useState(4);
 
   useEffect(() => {
-    if (!isBreathingActive) return;
+    if (!breathingOn) return;
 
     const timer = setInterval(() => {
-      setSecondsLeft((prev) => {
+      setSeconds((prev) => {
         if (prev > 1) return prev - 1;
 
-        if (breathPhase === "Inhale") {
-          setBreathPhase("Hold");
+        if (phase === "Inhale") {
+          setPhase("Hold");
           return 7;
-        } else if (breathPhase === "Hold") {
-          setBreathPhase("Exhale");
+        } else if (phase === "Hold") {
+          setPhase("Exhale");
           return 8;
         } else {
-          setBreathPhase("Inhale");
+          setPhase("Inhale");
           return 4;
         }
       });
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [isBreathingActive, breathPhase]);
+  }, [breathingOn, phase]);
 
-  function handleToggleBreathing() {
-    if (isBreathingActive) {
-      setIsBreathingActive(false);
-      setBreathPhase("Inhale");
-      setSecondsLeft(4);
+  function toggleBreathing() {
+    if (breathingOn) {
+      setBreathingOn(false);
+      setPhase("Inhale");
+      setSeconds(4);
     } else {
-      setBreathPhase("Inhale");
-      setSecondsLeft(4);
-      setIsBreathingActive(true);
+      setPhase("Inhale");
+      setSeconds(4);
+      setBreathingOn(true);
     }
   }
 
@@ -89,7 +88,6 @@ export default function SupportPage() {
 
   return (
     <div className="space-y-10 animate-fade-in">
-      {/* Page Header */}
       <div className="pb-4 border-b border-[#eceee7]">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#faeae8] text-[#8e3c35] text-[11px] font-bold tracking-wider uppercase mb-2">
           <ShieldAlert className="w-3.5 h-3.5 text-[#b04f44]" />
@@ -103,7 +101,6 @@ export default function SupportPage() {
         </p>
       </div>
 
-      {/* Emergency Crisis Banner */}
       <div className="p-6 sm:p-8 rounded-[26px] bg-[#fbf5eb] border border-[#f0debe] shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div>
           <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#7a4c28] text-white text-[10px] font-bold uppercase tracking-wider mb-2.5">
@@ -135,7 +132,6 @@ export default function SupportPage() {
         </div>
       </div>
 
-      {/* Grounding 4-7-8 Breathing Tool */}
       <div className="p-6 sm:p-8 rounded-[26px] bg-[#fffefa] border border-[#e7e9df] shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[#eceee7]">
           <div>
@@ -151,10 +147,10 @@ export default function SupportPage() {
           </div>
 
           <button
-            onClick={handleToggleBreathing}
+            onClick={toggleBreathing}
             className="btn-primary text-xs sm:text-sm px-5 py-2.5 shrink-0 self-start sm:self-auto"
           >
-            {isBreathingActive ? (
+            {breathingOn ? (
               <>
                 <Pause className="w-4 h-4" />
                 <span>Pause Exercise</span>
@@ -168,37 +164,34 @@ export default function SupportPage() {
           </button>
         </div>
 
-        {/* Breathing Circle Visualization */}
         <div className="py-8 flex flex-col items-center justify-center text-center">
           <div className="relative w-48 h-48 sm:w-56 sm:h-56 grid place-items-center">
-            {/* Outer animated halo */}
             <div
               className={`absolute inset-0 rounded-full bg-[#dce8d5]/40 transition-all duration-1000 ${
-                isBreathingActive
-                  ? breathPhase === "Inhale"
+                breathingOn
+                  ? phase === "Inhale"
                     ? "scale-105 bg-[#cadcbd]/70"
-                    : breathPhase === "Hold"
+                    : phase === "Hold"
                     ? "scale-105 bg-[#dce8d5]"
                     : "scale-90 bg-[#eef3ea]"
                   : "scale-95"
               }`}
             />
-            {/* Inner Core */}
             <div className="relative w-36 h-36 sm:w-40 sm:h-40 rounded-full bg-[#fffefa] border border-[#cadcbd] shadow-md flex flex-col items-center justify-center p-4">
               <span className="font-serif text-lg sm:text-xl font-medium text-[#243b32]">
-                {isBreathingActive ? breathPhase : "Ready"}
+                {breathingOn ? phase : "Ready"}
               </span>
               <span className="font-sans text-2xl sm:text-3xl font-light text-[#355b44] mt-1">
-                {isBreathingActive ? `${secondsLeft}s` : "Relax"}
+                {breathingOn ? `${seconds}s` : "Relax"}
               </span>
             </div>
           </div>
 
           <p className="mt-5 text-xs text-[#69836b] max-w-sm font-medium">
-            {isBreathingActive
-              ? breathPhase === "Inhale"
+            {breathingOn
+              ? phase === "Inhale"
                 ? "Inhale deeply through your nose for 4 seconds..."
-                : breathPhase === "Hold"
+                : phase === "Hold"
                 ? "Gently hold the breath in stillness for 7 seconds..."
                 : "Exhale slowly and completely through mouth for 8 seconds..."
               : "Click 'Begin Breathing' when you are ready to center yourself."}
@@ -206,7 +199,6 @@ export default function SupportPage() {
         </div>
       </div>
 
-      {/* Directory of Helplines Grid */}
       <div>
         <h2 className="font-serif text-xl sm:text-2xl font-medium text-[#243b32] mb-4">
           Trusted Support Directory
@@ -245,7 +237,6 @@ export default function SupportPage() {
         </div>
       </div>
 
-      {/* Student Self-Care Checklist */}
       <div className="p-6 rounded-[24px] bg-[#f8faf4] border border-[#e2ebd9]">
         <h3 className="font-serif text-lg font-medium text-[#243b32] mb-3 flex items-center gap-2">
           <Compass className="w-4 h-4 text-[#355b44]" />

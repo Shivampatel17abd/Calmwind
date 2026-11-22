@@ -12,8 +12,6 @@ import JournalViewModal from "../components/JournalViewModal";
 import BreathingCard from "../components/BreathingCard";
 import { useAuth } from "../context/AuthContext";
 
-// One thing at a time, in a single quiet column: breathe, write, one small
-// step, then (only if wanted) look back. No scores, streaks or counts.
 export default function DashboardHome() {
   const { user } = useAuth();
   const [entries, setEntries] = useState(() => getJournalEntries());
@@ -76,7 +74,6 @@ export default function DashboardHome() {
 
       <BreathingCard />
 
-      {/* The one main task on this page */}
       <section className="rounded-[20px] border border-[#e8eae2] bg-[#fdfdfa] p-6 sm:p-7">
         <h2 className="text-lg font-semibold text-[#2e3d36]">Write, if it helps</h2>
         <p className="mt-1 text-sm leading-relaxed text-[#66736a]">
@@ -153,7 +150,6 @@ export default function DashboardHome() {
         </form>
       </section>
 
-      {/* Optional, pressure-free: pick one, or none */}
       <section aria-label="One small step">
         <h2 className="text-base font-semibold text-[#2e3d36]">One small step, if you like</h2>
         <p className="mt-1 text-sm text-[#66736a]">Pick one, or none. Rest counts too.</p>
@@ -183,7 +179,6 @@ export default function DashboardHome() {
         </div>
       </section>
 
-      {/* Looking back is optional, and kept to just the latest two */}
       {entries.length > 0 && (
         <section aria-label="Recent reflections">
           <div className="flex items-baseline justify-between gap-4">

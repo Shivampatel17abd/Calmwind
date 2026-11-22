@@ -1,7 +1,3 @@
-/**
- * Reusable single-select option input supporting rich visual cards ("card")
- * and compact pill buttons ("pill").
- */
 export default function OptionSelector({
   label,
   subtitle = "",

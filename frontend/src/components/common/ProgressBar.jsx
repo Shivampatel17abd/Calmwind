@@ -12,9 +12,6 @@ const TEXT_TONES = {
   alert: "text-[#8c3b2b]",
 };
 
-/**
- * Reusable progress meter for assessment steps and mental health domain breakdowns.
- */
 export default function ProgressBar({
   value,
   max = 100,

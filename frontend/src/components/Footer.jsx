@@ -7,7 +7,6 @@ export default function Footer() {
   const { isAuthenticated } = useAuth();
   return (
     <footer id="help" className="border-t border-[#e7e9df] bg-[#fffefa]/90 mt-12">
-      {/* Helpline banner */}
       <div className="max-w-5xl mx-auto px-4 pt-12 pb-6">
         <div className="p-6 sm:p-8 rounded-[22px] bg-[#fbf2e3] border border-[#f0debe] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
@@ -41,7 +40,6 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Main Footer Links */}
       <div className="max-w-5xl mx-auto px-4 py-10 flex flex-col sm:flex-row items-center justify-between gap-6 border-b border-[#eceee7]">
         <div className="flex items-center gap-2.5 text-lg font-bold text-[#243b32]">
           <div className="w-7 h-7 rounded-lg bg-[#dce8d5] grid place-items-center">
@@ -96,7 +94,6 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Disclaimer */}
       <div className="max-w-5xl mx-auto px-4 py-6 text-center">
         <p className="text-xs text-[#7b827a] leading-relaxed">
           CalmWind is a student project and is not a substitute for professional help.

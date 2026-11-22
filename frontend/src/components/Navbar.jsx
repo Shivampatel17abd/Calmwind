@@ -109,7 +109,6 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile navigation strip */}
       <div className="md:hidden border-t border-[#eceee7] px-3 py-2 flex items-center justify-center gap-1.5 text-xs font-medium overflow-x-auto">
         <Link
           to="/"

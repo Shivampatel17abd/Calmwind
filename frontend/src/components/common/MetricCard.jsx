@@ -32,9 +32,6 @@ const LABEL_TONES = {
   alert: "text-[#8c3b2b]",
 };
 
-/**
- * Reusable metric card styled after CalmWind Hero's floating status cards.
- */
 export default function MetricCard({
   icon = null,
   iconName = "",

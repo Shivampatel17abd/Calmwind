@@ -1,8 +1,5 @@
 import SectionBadge from "./SectionBadge";
 
-/**
- * Reusable slider field styled in CalmWind's forest-and-sage palette.
- */
 export default function RangeSliderField({
   id,
   label,

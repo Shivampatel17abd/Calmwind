@@ -1,9 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Pause, Play } from "lucide-react";
 
-// Slow breathing at ~6 breaths/min (5s in, 5s out, no holds) is the pace
-// with the strongest evidence for raising HRV and settling arousal.
-// It never starts on its own — the person chooses to begin.
 export default function BreathingCard() {
   const [running, setRunning] = useState(false);
   const [phase, setPhase] = useState("in"); // "in" | "out"

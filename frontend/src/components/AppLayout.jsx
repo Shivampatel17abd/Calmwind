@@ -65,7 +65,6 @@ export default function AppLayout() {
 
   return (
     <div className="min-h-screen bg-[#f4f2ea] text-[#243b32] flex flex-col lg:flex-row antialiased selection:bg-[#cadcbd] selection:text-[#1a2c25]">
-      {/* Mobile Top Navigation Bar */}
       <div className="lg:hidden sticky top-0 z-40 bg-[#fffefa]/95 backdrop-blur-md border-b border-[#e7e9df] px-4 py-3 flex items-center justify-between">
         <Link to="/app" className="flex items-center gap-2" title="CalmWind Sanctuary Home">
           <div className="w-8 h-8 rounded-xl bg-[#e3ebd9] grid place-items-center">
@@ -89,7 +88,6 @@ export default function AppLayout() {
         </div>
       </div>
 
-      {/* Mobile Drawer Backdrop */}
       {mobileMenuOpen && (
         <div
           className="lg:hidden fixed inset-0 z-40 bg-black/25 backdrop-blur-xs transition-opacity duration-200"
@@ -97,14 +95,12 @@ export default function AppLayout() {
         />
       )}
 
-      {/* Sidebar (Desktop sticky & Mobile Slide-over) */}
       <aside
         className={`fixed lg:sticky top-0 left-0 z-50 h-screen w-72 shrink-0 bg-[#f9f8f4] border-r border-[#e7e9df] flex flex-col justify-between p-6 transition-transform duration-200 ease-out lg:translate-x-0 ${
           mobileMenuOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full lg:translate-x-0"
         }`}
       >
         <div>
-          {/* Brand header - links to main home */}
           <div className="flex items-center justify-between pb-6 border-b border-[#eceee7]">
             <Link to="/app" className="flex items-center gap-3 group no-underline" title="Return to Sanctuary Home">
               <div className="w-9 h-9 rounded-xl bg-[#e3ebd9] grid place-items-center transition-transform group-hover:scale-105 duration-200">
@@ -128,7 +124,6 @@ export default function AppLayout() {
             </button>
           </div>
 
-          {/* Nav links */}
           <nav className="mt-6 space-y-1.5">
             {navItems.map((item) => {
               const Icon = item.icon;
@@ -154,9 +149,7 @@ export default function AppLayout() {
           </nav>
         </div>
 
-        {/* Bottom Support Callout & User Profile */}
         <div className="space-y-4 pt-6 border-t border-[#eceee7]">
-          {/* Quiet support link — always findable, never alarming */}
           <div className="p-4 rounded-2xl bg-[#f8f9f6] border border-[#e8eae2]">
             <p className="text-sm font-medium text-[#2e3d36]">Feeling overwhelmed?</p>
             <p className="text-sm text-[#66736a] leading-relaxed mt-1 mb-3">
@@ -172,7 +165,6 @@ export default function AppLayout() {
             </Link>
           </div>
 
-          {/* User profile bar */}
           <div className="flex items-center justify-between pt-2">
             <div className="flex items-center gap-3 min-w-0">
               <div className="w-9 h-9 rounded-full bg-[#355b44] text-[#fffefa] font-serif text-sm font-medium grid place-items-center shrink-0 border border-[#cadcbd]">
@@ -207,7 +199,6 @@ export default function AppLayout() {
         </div>
       </aside>
 
-      {/* Main Content Area */}
       <div className="flex-1 min-w-0 flex flex-col">
         <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-8 lg:px-12 py-8 sm:py-10">
           <Outlet />

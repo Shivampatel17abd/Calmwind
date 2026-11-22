@@ -13,9 +13,6 @@ const PADDING_STYLES = {
   lg: "p-7 sm:p-9",
 };
 
-/**
- * Reusable CalmWind surface card matching the site's organic cream-and-sage aesthetic.
- */
 export default function CalmCard({
   children,
   tone = "default",

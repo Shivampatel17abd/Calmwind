@@ -18,9 +18,6 @@ const ITEM_ICON_TONES = {
   warm: "text-[#7a4c28]",
 };
 
-/**
- * Reusable card presenting a header and list of observations or recommendations.
- */
 export default function InsightListCard({
   title,
   subtitle = "",

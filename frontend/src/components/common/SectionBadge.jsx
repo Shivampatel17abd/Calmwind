@@ -6,9 +6,6 @@ const BADGE_TONES = {
   neutral: "text-[#69836b] bg-[#f3f5ed] border-[#e7e9df]",
 };
 
-/**
- * Reusable CalmWind pill badge for section eyebrows, status tags, and slider readouts.
- */
 export default function SectionBadge({
   children,
   icon = null,

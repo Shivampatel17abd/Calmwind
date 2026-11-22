@@ -49,20 +49,16 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          {/* Public Landing */}
           <Route path="/" element={<PublicLanding />} />
 
-          {/* Public Auth */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/create-account" element={<Signup />} />
 
-          {/* Public tools from main (local-first, no account needed) */}
           <Route path="/track-health" element={<MentalHealthTracker />} />
           <Route path="/track_helth" element={<MentalHealthTracker />} />
           <Route path="/notes" element={<Notes />} />
 
-          {/* Authenticated Desktop App with Left Sidebar */}
           <Route element={<ProtectedRoute />}>
             <Route path="/app" element={<AppLayout />}>
               <Route index element={<DashboardHome />} />
@@ -73,13 +69,11 @@ export default function App() {
             </Route>
           </Route>
 
-          {/* Convenient Aliases */}
           <Route path="/chat" element={<Navigate to="/app/chat" replace />} />
           <Route path="/journal" element={<Navigate to="/app/journal" replace />} />
           <Route path="/dashboard" element={<Navigate to="/app" replace />} />
           <Route path="/help" element={<Navigate to="/app/support" replace />} />
 
-          {/* Catch-all */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
